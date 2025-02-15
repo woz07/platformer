@@ -1,0 +1,15 @@
+{
+  "name": "platformer",
+  "version": "1.0.0",
+  "description": "Simple platformer game",
+  "main": "game.js",
+  "dependencies": {
+    "raylib": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node game.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
