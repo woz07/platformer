@@ -5,6 +5,8 @@ const height = 450
 engine.InitWindow(width, height, "Platformer")
 engine.SetTargetFPS(60)
 
+// TODO: add multiple bots and give them all movements !!!!!!!!!!!!!
+
 var player = {
     x: width / 2,
     y: height / 2,
@@ -27,17 +29,17 @@ while (!engine.WindowShouldClose()) {
     // draw bot
     engine.DrawCircle(bot.x, bot.y, bot.radius, engine.RED)
 
-    if (engine.IsKeyDown(0x57)  && player.y != 25) {
+    if (engine.IsKeyDown(0x57)  && player.y != 25) { //w
         player.y -= player.speed
     }
-    if (engine.IsKeyDown(0x53)  && player.y != height - 25) {
+    if (engine.IsKeyDown(0x53)  && player.y != height - 25) { //s
         player.y += player.speed
     }
-    if (engine.IsKeyDown(0x41)  && player.x != 25) {
+    if (engine.IsKeyDown(0x41)  && player.x != 25) { //a
         player.x -= player.speed
     }
-    if (engine.IsKeyDown(0x44)  && player.x != width - 25) {
-        player.y += player.speed
+    if (engine.IsKeyDown(0x44)  && player.x != width - 25) { //d
+        player.x += player.speed
     }
     
     if (engine.IsKeyPressed(0x1B)) {
