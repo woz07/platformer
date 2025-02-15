@@ -6,9 +6,10 @@ engine.InitWindow(width, height, "raylib [core] example - basic window")
 engine.SetTargetFPS(60)
 
 while (!engine.WindowShouldClose()) {
-    engine.BeginDrawing();
-    engine.ClearBackground(engine.RAYWHITE)
-    engine.DrawText("Congrats! You created your first node-raylib window!", 120, 200, 20, engine.LIGHTGRAY)
+    engine.BeginDrawing()
+
+    engine.DrawCircle(width / 2, height / 2, 25, engine.BLACK);
+
     engine.EndDrawing()
 }
 engine.CloseWindow()
