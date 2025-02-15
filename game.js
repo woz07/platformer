@@ -29,3 +29,9 @@ while (!engine.WindowShouldClose()) {
     engine.EndDrawing()
 }
 engine.CloseWindow()
+
+// Checks if player is within bounds
+function isInBounds() {
+    // Something about player_x & player_y and width & height.
+    // If you press W while being at y=0, should you continue moving upwards?
+}
