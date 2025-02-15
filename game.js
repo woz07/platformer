@@ -13,25 +13,21 @@ while (!engine.WindowShouldClose()) {
 
     engine.ClearBackground(engine.WHITE)
     engine.DrawCircle(player_x, player_y, 25, engine.BLACK);
-    if (engine.IsKeyDown(0x57)) {
+    if (engine.IsKeyDown(0x57)  && player_y != 25) {
         player_y = player_y - player_speed
     }
-    if (engine.IsKeyDown(0x53)) {
+    if (engine.IsKeyDown(0x53)  && player_y != height - 25) {
         player_y = player_y + player_speed
     }
-    if (engine.IsKeyDown(0x41)) {
+    if (engine.IsKeyDown(0x41)  && player_x != 25) {
         player_x = player_x - player_speed
     }
-    if (engine.IsKeyDown(0x44)) {
+    if (engine.IsKeyDown(0x44)  && player_x != width - 25) {
         player_x = player_x + player_speed
     }
+    
 
     engine.EndDrawing()
 }
 engine.CloseWindow()
 
-// Checks if player is within bounds
-function isInBounds() {
-    // Something about player_x & player_y and width & height.
-    // If you press W while being at y=0, should you continue moving upwards?
-}
