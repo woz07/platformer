@@ -13,10 +13,10 @@ var player = {
 }
 
 var bot = {
-    x: 0,
-    y: 0,
+    x: 15,
+    y: 15,
     radius: 15,
-    speed: 3
+    speed: 2.5
 }
 
 while (!engine.WindowShouldClose()) {
@@ -25,7 +25,7 @@ while (!engine.WindowShouldClose()) {
     engine.ClearBackground(engine.WHITE)
     engine.DrawCircle(player.x, player.y, player.radius, engine.BLACK);
     // draw bot
-    // <-- here
+    engine.DrawCircle(bot.x, bot.y, bot.radius, engine.RED)
 
     if (engine.IsKeyDown(0x57)  && player.y != 25) {
         player.y -= player.speed
@@ -41,10 +41,28 @@ while (!engine.WindowShouldClose()) {
     }
     
     // add bot logic, for bot to move x and y.
+    var distance_x = bot.x - player.x
+    var distance_y = bot.y - player.y
+    if (distance_x < 0) {
+        bot.x += bot.speed
+    } else {
+        bot.x -= bot.speed
+    }
+    if (distance_y < 0) {
+        bot.y += bot.speed
+    } else {
+        bot.y -= bot.speed
+    }
+    
+    if (bot.x == player.x && bot.y == player.y) {
+        engine.DrawText("game over", width / 2, height / 2, 20, engine.GREEN)
+        engine.EndDrawing()
+        engine.WaitTime(5)
+        break
+    }
     // make it, so that the bot moves towards the player no matter what.
     // you can do this using player.x and player.y, using bot.x and bot.y
 
     engine.EndDrawing()
 }
 engine.CloseWindow()
-
