@@ -40,6 +40,11 @@ while (!engine.WindowShouldClose()) {
         player.y += player.speed
     }
     
+    if (engine.IsKeyPressed(0x1B)) {
+        engine.EndDrawing()
+        break
+    }
+
     // add bot logic, for bot to move x and y.
     var distance_x = bot.x - player.x
     var distance_y = bot.y - player.y
@@ -57,7 +62,7 @@ while (!engine.WindowShouldClose()) {
     if (bot.x == player.x && bot.y == player.y) {
         engine.DrawText("game over", width / 2, height / 2, 20, engine.GREEN)
         engine.EndDrawing()
-        engine.WaitTime(5)
+        engine.WaitTime(2.5)
         break
     }
     // make it, so that the bot moves towards the player no matter what.
