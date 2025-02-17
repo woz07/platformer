@@ -5,22 +5,20 @@ const height = 450
 engine.InitWindow(width, height, "Platformer")
 engine.SetTargetFPS(60)
 
-// TODO: add multiple bots and give them all movements !!!!!!!!!!!!!
-
-var hitbox = {
-    left: player.x-25,
-    top: player.y-25,
-    right: player.x+25,
-    bottom: player.y+25
-}
-
 var player = {
     x: 25,
     y: height - 30,
     radius: 25,
     speed: 5,
-    vx: 5,
-    vy: 5
+    v: 1,
+}
+
+function pog(player, height) {
+    if (player.y >= height - player.radius) 
+    {
+        return 1
+    }
+    return 0
 }
 
 var bot = {
@@ -37,24 +35,45 @@ var bot1 = {
     speed: 2.5
 } 
 
-const gravity = 1
+var platform = {
+    x: 50,
+    y: height - 100,
+    width: 100,
+    height: 20
+}
+
+const gravity = 1.5
 
 while (!engine.WindowShouldClose()) {
     engine.BeginDrawing()
-    engine.ClearBackground(engine.WHITE)
-    //hitbox
-    engine.DrawRectangle(player.x - 25, player.y - 25, 50, 50, engine.WHITE)
+    engine.ClearBackground(engine.BLACK)
+
     //player
-    engine.DrawCircle(player.x, player.y, player.radius, engine.BLACK);
+    engine.DrawCircle(player.x, player.y, player.radius, engine.WHITE);
+
+    //platforms
+    engine.DrawRectangle(platform.x, platform.y, platform.width, platform.height, engine.RED)
+
+    //bots
     engine.DrawCircle(bot.x, bot.y, bot.radius, engine.RED)
     engine.DrawCircle(bot1.x, bot1.y, bot1.radius, engine.RED)
+    
+    if (pog (player, height)) {
+        player.v = 0
+        player.y = height - player.radius
 
-    if (engine.IsKeyDown(0x57)  && player.y != 25) { //w
-        player.y -= player.speed
+        if (engine.IsKeyPressed(0x57)) { //w
+            player.v = -20
+        }
+
     }
-    if (engine.IsKeyDown(0x53)  && player.y != height - 25) { //s
-        player.y += player.speed
-    }
+
+    player.y += player.v
+    player.v += gravity
+
+//    if (engine.IsKeyDown(0x53)  && player.y != height - 25) { //s
+//        player.y += player.speed
+//    }
     if (engine.IsKeyDown(0x41)  && player.x != 25) { //a
         player.x -= player.speed
     }
@@ -62,7 +81,11 @@ while (!engine.WindowShouldClose()) {
         player.x += player.speed
     }
 
-
+    // FIX THE GOD DAN PLATFORM FOR GOD SAKE I NEED HELP/SLEEP/MENTAL CHECK!!!!!!!!!!!!!!!
+    if (player.y == platform.y + player.radius) {
+        player.v = 0
+        player.y += player.radius
+    }
 
     if (engine.IsKeyPressed(0x1B)) {
         engine.EndDrawing()
@@ -95,15 +118,15 @@ while (!engine.WindowShouldClose()) {
     } else {
         bot1.y -= bot.speed
     }
-    //carry on changing the bots hitting point with the hitbox
-    if (bot.x == hitbox.top || bot.x == hitbox.bottom || bot.y == hitbox.left || bot.y == hitbox.right) {
-        engine.DrawText("game over", width / 2.2, height / 2.2, 40, engine.BLACK)
+    
+    if (bot.x == player.x && bot.y == player.y) {
+        engine.DrawText("game over", width / 2.2, height / 2.2, 40, engine.WHITE)
         engine.EndDrawing()
         engine.WaitTime(0.75)
         break
     }
-    if (bot1.x == hitbox.top || bot1.x == hitbox.bottom || bot1.y == hitbox.left || bot1.y == hitbox.right) {
-        engine.DrawText("game over", width / 2.2, height / 2.2, 40, engine.BLACK)
+    if (bot1.x == player.x && bot1.y == player.y) {
+        engine.DrawText("game over", width / 2.2, height / 2.2, 40, engine.WHITE)
         engine.EndDrawing()
         engine.WaitTime(0.75)
         break
