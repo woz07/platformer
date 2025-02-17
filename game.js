@@ -42,6 +42,13 @@ var platform = {
     height: 20
 }
 
+var platform1 = {
+    x: 250,
+    y: height - 200,
+    width: 100,
+    height: 20
+}
+
 const gravity = 1.5
 
 while (!engine.WindowShouldClose()) {
@@ -53,6 +60,8 @@ while (!engine.WindowShouldClose()) {
 
     //platforms
     engine.DrawRectangle(platform.x, platform.y, platform.width, platform.height, engine.RED)
+
+    engine.DrawRectangle(platform1.x, platform1.y, platform1.width, platform1.height, engine.BLUE)
 
     //bots
     engine.DrawCircle(bot.x, bot.y, bot.radius, engine.RED)
@@ -82,9 +91,28 @@ while (!engine.WindowShouldClose()) {
     }
 
     // Check collision between player and platform, if collision then keep player on top of platform
-    if (engine.CheckCollisionRecs({x: player.x - player.radius, y: player.y - player.radius, width: player.radius * 2, height: player.radius * 2}, {x: platform.x, y: platform.y, width: platform.width, height: platform.height})) {
+    if (engine.CheckCollisionRecs({x: player.x - player.radius, y: player.y - player.radius, width: player.radius * 2, height: player.radius * 2}, {x: platform.x , y: platform.y, width: platform.width, height: platform.height})) {
         player.v = 0
+        player.y += player.v
+        player.v += gravity
         player.y = platform.y - player.radius
+
+        if (engine.IsKeyPressed(0x57)) { //w
+            player.v = - 25
+        }
+        
+    }
+
+    if (engine.CheckCollisionRecs({x: player.x - player.radius, y: player.y - player.radius, width: player.radius * 2, height: player.radius * 2}, {x: platform1.x , y: platform1.y, width: platform1.width, height: platform1.height})) {
+        player.v = 0
+        player.y += player.v
+        player.v += gravity
+        player.y = platform1.y - player.radius
+
+        if (engine.IsKeyPressed(0x57)) { //w
+            player.v = - 15
+        }
+        
     }
 
     if (engine.IsKeyPressed(0x1B)) {
@@ -119,18 +147,18 @@ while (!engine.WindowShouldClose()) {
         bot1.y -= bot.speed
     }
     
-    if (bot.x == player.x && bot.y == player.y) {
-        engine.DrawText("game over", width / 2.2, height / 2.2, 40, engine.WHITE)
-        engine.EndDrawing()
-        engine.WaitTime(0.75)
-        break
-    }
-    if (bot1.x == player.x && bot1.y == player.y) {
-        engine.DrawText("game over", width / 2.2, height / 2.2, 40, engine.WHITE)
-        engine.EndDrawing()
-        engine.WaitTime(0.75)
-        break
-    }
+    //if (bot.x == player.x && bot.y == player.y) {
+    //    engine.DrawText("game over", width / 2.2, height / 2.2, 40, engine.WHITE)
+    //    engine.EndDrawing()
+    //    engine.WaitTime(0.75)
+    //    break
+    //}
+    //if (bot1.x == player.x && bot1.y == player.y) {
+    //    engine.DrawText("game over", width / 2.2, height / 2.2, 40, engine.WHITE)
+    //    engine.EndDrawing()
+    //    engine.WaitTime(0.75)
+    //    break
+    //}
     // make it, so that the bot moves towards the player no matter what.
     // you can do this using player.x and player.y, using bot.x and bot.y
 
