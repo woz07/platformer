@@ -4,6 +4,7 @@
   "description": "Simple platformer game",
   "main": "game.js",
   "dependencies": {
+    "platformer": "file:",
     "raylib": "*"
   },
   "scripts": {

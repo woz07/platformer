@@ -74,17 +74,17 @@ while (!engine.WindowShouldClose()) {
 //    if (engine.IsKeyDown(0x53)  && player.y != height - 25) { //s
 //        player.y += player.speed
 //    }
-    if (engine.IsKeyDown(0x41)  && player.x != 25) { //a
+    if (engine.IsKeyDown(engine.KEY_A)  && player.x != 25) { //a
         player.x -= player.speed
     }
-    if (engine.IsKeyDown(0x44)  && player.x != width - 25) { //d
+    if (engine.IsKeyDown(engine.KEY_D)  && player.x != width - 25) { //d
         player.x += player.speed
     }
 
-    // FIX THE GOD DAN PLATFORM FOR GOD SAKE I NEED HELP/SLEEP/MENTAL CHECK!!!!!!!!!!!!!!!
-    if (player.y == platform.y + player.radius) {
+    // Check collision between player and platform, if collision then keep player on top of platform
+    if (engine.CheckCollisionRecs({x: player.x - player.radius, y: player.y - player.radius, width: player.radius * 2, height: player.radius * 2}, {x: platform.x, y: platform.y, width: platform.width, height: platform.height})) {
         player.v = 0
-        player.y += player.radius
+        player.y = platform.y - player.radius
     }
 
     if (engine.IsKeyPressed(0x1B)) {
